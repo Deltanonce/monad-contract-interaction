@@ -1,22 +1,18 @@
 from web3 import Web3
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Access variables
-WALLET_ADDRESS = os.getenv('WALLET_ADDRESS')
-PRIVATE_KEY = os.getenv('PRIVATE_KEY')
-CONTRACT_ADDRESS = os.getenv('CONTRACT_ADDRESS')
-
-# Ensure variables are not None
-if None in (WALLET_ADDRESS, PRIVATE_KEY, CONTRACT_ADDRESS):
-    raise ValueError("Missing environment variables. Please check your .env file.")
+wallet_address = os.getenv('WALLET_ADDRESS')
+private_key = os.getenv('PRIVATE_KEY')
+contract_address = os.getenv('CONTRACT_ADDRESS')
+rpc_url = os.getenv('RPC_URL')
 
 # Connect to Monad Testnet
-RPC_URL = "https://testnet-rpc2.monad.xyz/"
-web3 = Web3(Web3.HTTPProvider(RPC_URL))
+web3 = Web3(Web3.HTTPProvider(rpc_url))
 
 # ABI of the contract
 ABI = [
