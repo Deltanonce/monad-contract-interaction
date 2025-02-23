@@ -1,15 +1,24 @@
 from web3 import Web3
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access variables
+WALLET_ADDRESS = os.getenv('WALLET_ADDRESS')
+PRIVATE_KEY = os.getenv('PRIVATE_KEY')
+CONTRACT_ADDRESS = os.getenv('CONTRACT_ADDRESS')
+
+# Ensure variables are not None
+if None in (WALLET_ADDRESS, PRIVATE_KEY, CONTRACT_ADDRESS):
+    raise ValueError("Missing environment variables. Please check your .env file.")
 
 # Connect to Monad Testnet
 RPC_URL = "https://testnet-rpc2.monad.xyz/"
 web3 = Web3(Web3.HTTPProvider(RPC_URL))
 
-# Your wallet details
-WALLET_ADDRESS = "YOUR_WALLET_ADDRESS"
-PRIVATE_KEY = "YOUR_WALLET_PRIVATE_KEY"
-
-# Smart contract details
-CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS"
+# ABI of the contract
 ABI = [
     {
         "constant": True,
@@ -57,6 +66,12 @@ def set_greeting(new_message):
 
     print(f"Transaction sent: {txn_hash.hex()}")
     return txn_hash.hex()
+
+# Example Usage
+if __name__ == "__main__":
+    get_greeting()  # Read the greeting
+    set_greeting("Hello Monad!")  # Update the greeting
+
 
 # Example Usage
 get_greeting()  # Read the greeting
